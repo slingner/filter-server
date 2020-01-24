@@ -10,8 +10,12 @@ const morganOption = process.env.NODE_ENV === 'production'
   ? 'tiny'
   : 'common'
 
-app.use(morgan(morganOption)); //tiny is production, developer is common
+app.use(morgan(morganOption)); 
 app.use(cors());
 app.use(helmet());
+
+app.get('/', (req, res, next) => {
+  res.json( { message: 'Hello World' } );
+});
 
 module.exports = app;
