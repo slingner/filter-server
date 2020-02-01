@@ -20,7 +20,7 @@ const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
-  // Mounting our middleware, always put helmet before cors!
+// Mounting our middleware, always put helmet before cors!
 app.use(morgan(morganOption)); 
 app.use(helmet());
 app.use(cors());
