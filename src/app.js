@@ -12,8 +12,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 //imports environment from config settings
 const { NODE_ENV } = require('./config');
-//enable logging failures
-const winston = require('winston');
 //import logic for validating/securing API token
 const validateToken = require('./validateToken');
 //imports all error handling logic 

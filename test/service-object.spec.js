@@ -20,6 +20,9 @@ describe('Service object', function() {
   }));
 
   // Clears previous data in the table
+  //if a table has a reference(ref) use 
+  // before(() => () => db.raw('TRUNCATE notes, example_db RESTART IDENTITY CASCADE')
+  // afterEach(() => () => db.raw('TRUNCATE notes, example_db RESTART IDENTITY CASCADE')
   before(() => db('example_db').truncate());
   afterEach(() => db('example_db').truncate());
     
