@@ -20,9 +20,10 @@ describe('Service object', function() {
   }));
 
   // Clears previous data in the table
-  //if a table has a reference(ref) use 
-  // before(() => () => db.raw('TRUNCATE notes, example_db RESTART IDENTITY CASCADE')
+  //if a table has a reference(ref) use raw SQL statement:
+  // before(() => () => db.raw('TRUNCATE notes, example_db RESTART IDENTITY CASCADE') 
   // afterEach(() => () => db.raw('TRUNCATE notes, example_db RESTART IDENTITY CASCADE')
+  //restart identity will reset the id of the table. Cascade will allow you to clear all tables.
   before(() => db('example_db').truncate());
   afterEach(() => db('example_db').truncate());
     
