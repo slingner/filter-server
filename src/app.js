@@ -13,9 +13,14 @@ const helmet = require('helmet');
 //imports environment from config settings
 const { NODE_ENV } = require('./config');
 //import logic for validating/securing API token
-const validateToken = require('./validateToken');
+// const validateToken = require('./validateToken');
 //imports all error handling logic 
 const errorHandling = require('./errorHandling');
+
+//imports the beanlist router to be used for endpoints
+const beanListRouter = require('./beanlist/beanlist-router');
+const reviewsRouter = require('./reviews/reviews-router');
+const authRouter = require('./auth/auth-router');
 
 //create express app to communicate with express server
 const app = express();
@@ -29,26 +34,24 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 
-
-
 //----------------------------------Mounting Middleware
 
 //always hide HTTP headers with morgan before sending cors
 app.use(morgan(morganOption)); 
 app.use(helmet());
 app.use(cors());
-// Use to parse JSON body of request
-app.use(express.json());
+
 
 // Validate API key
-app.use(validateToken);
+// app.use(validateToken);
+
+
+//----------------------------------Endpoints Config
+app.use('/api/beans', beanListRouter);
+app.use('/api/reviews', reviewsRouter);
+app.use('/api/auth', authRouter);
 
 //Create errors if any arise
 app.use(errorHandling);
-
-//----------------------------------Endpoints Config
-app.get('/', (req, res) => {
-  res.json( { message: 'Hello, Scott!' } );
-});
 
 module.exports = app;

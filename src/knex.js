@@ -1,7 +1,7 @@
 // Require created environment variables
 require('dotenv').config();
 // Require service objects
-const ServiceObject = require('./ServiceObject');
+
 
 // Require library to access database
 const knex = require('knex');

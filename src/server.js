@@ -1,4 +1,14 @@
 const app = require('./app');
-const { PORT } = require('./config');
+const { PORT, DB_URL } = require('./config');
+const knex = require('knex');
+
+
+const db = knex({
+  client: 'pg',
+  connection: DB_URL
+});
+
+//giving the string db as the knex instance. Need access to knex instance 
+app.set('db', db);
 
 app.listen(PORT, () => console.log(`Server listening at http://localhost:${PORT}`));
