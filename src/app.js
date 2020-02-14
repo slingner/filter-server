@@ -18,8 +18,10 @@ const { NODE_ENV } = require('./config');
 const errorHandling = require('./errorHandling');
 
 //imports the beanlist router to be used for endpoints
-const beanListRouter = require('./beanlist/beanlist-router');
-const reviewsRouter = require('./reviews/reviews-router');
+const beanListRouter= require('./beanlist/beanlist-router');
+const flavorListRouter = require('./flavor-router/flavor-router');
+const usersRouter = require('./users/users-router');
+// const  reviewsRouter = require('./reviews/reviews-router');
 const authRouter = require('./auth/auth-router');
 
 //create express app to communicate with express server
@@ -48,7 +50,10 @@ app.use(cors());
 
 //----------------------------------Endpoints Config
 app.use('/api/beans', beanListRouter);
-app.use('/api/reviews', reviewsRouter);
+app.use('/api/flavors', beanListRouter );
+app.use('/api/allflavors', flavorListRouter);
+app.use('/api/users', usersRouter);
+// app.use('/api/reviews', reviewsRouter);
 app.use('/api/auth', authRouter);
 
 //Create errors if any arise

@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS coffee_beans (
     bean_origin TEXT NOT NULL,
     bean_masl TEXT NOT NULL,
     bean_grower TEXT NOT NULL,
-    bean_process TEXT NOT NULL
+    bean_process TEXT NOT NULL,
+    flavor_notes TEXT NOT NULL
 );

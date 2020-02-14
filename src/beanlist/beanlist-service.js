@@ -6,48 +6,58 @@ const BeanListService = {
     return knex
       .select('*')
       .from('coffee_beans');
-  }, 
+  },
+  getBeanById(knex, id) {
+    return knex
+      .select('*')
+      .from('coffee_beans')
+      .where('id', id);
+  },
   getFlavorNoteFromBeanID(knex, id) {
     return knex
       .select('fn.flavor_name')
       .from('coffee_beans_flavor_notes AS cbfn')
       .join('flavor_notes AS fn').on('cbfn.flavor_note_id', '=', 'fn.id')
-      .where('cbfn.coffee_bean_id', id)
-      .first();
+      .where('cbfn.coffee_bean_id', id);
   },
   getBeanByFlavorNoteID(knex, id) {
     return knex
-      .select('cb.bean_name')
-      .from('coffee_beans_flavor_notes cbfn')
-      .join('coffee_beans AS cb').on('cbfn.coffee_bean_id', '=', 'cb.id')
-      .where('cbfn.flavor_note_id ', id)
-      .first();
+      .from('coffee_beans_flavor_notes')
+      .distinct('coffee_beans.bean_name', 'coffee_beans.bean_origin', 'coffee_beans.bean_masl', 'coffee_beans.bean_grower', 'coffee_beans.bean_process', 'coffee_beans.flavor_notes' )
+      .whereIn('coffee_beans_flavor_notes.flavor_note_id', id)
+      .join('coffee_beans', function() {
+        this.on('coffee_beans_flavor_notes.coffee_bean_id', '=', 'coffee_beans.id');
+      });
   },
-  
-  getById(db, id) {
-    return BeanListService.getAllBeans(db)
-      .where('thg.id', id)
-      .first();
-  },
-
-  getReviewsForBean(db, coffee_bean_id) {
+  getBeansForUser(db, id) {
     return db
-      .from('filter_reviews AS review')
-      .select(
-        'review.id',
-        'review.rating',
-        'review.text',
-        'review.date_created',
-        ...userFields
-      )
-      .where('review.coffee_bean_id', coffee_bean_id)
-      .leftJoin(
-        'filter_users AS usr',
-        'review.user_id',
-        'usr.id'
-      )
-      .groupBy('review.id', 'usr.id');
+      .select('*')
+      .from('filter_users.coffee_bean_id')
+      .where('id', id);
+  }, 
+  insertBeanIdToUsersCoffeeBeanIdTable(db, coffeeBeanid) {
+    return db
+      .insert(coffeeBeanid)
+      .into('filter_users.coffee_bean_id');
   },
+  // getReviewsForBean(db, coffee_bean_id) {
+  //   return db
+  //     .from('filter_reviews AS review')
+  //     .select(
+  //       'review.id',
+  //       'review.rating',
+  //       'review.text',
+  //       'review.date_created',
+  //       ...userFields
+  //     )
+  //     .where('review.coffee_bean_id', coffee_bean_id)
+  //     .leftJoin(
+  //       'filter_users AS usr',
+  //       'review.user_id',
+  //       'usr.id'
+  //     )
+  //     .groupBy('review.id', 'usr.id');
+  // },
 
   serializeBeans(beans) {
     return beans.map(this.serializeBean);

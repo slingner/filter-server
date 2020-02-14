@@ -5,10 +5,7 @@ CREATE TABLE filter_users (
   password TEXT NOT NULL,
   nickname TEXT,
   date_created TIMESTAMP NOT NULL DEFAULT now(),
-  date_modified TIMESTAMP
+  date_modified TIMESTAMP, 
+  coffee_beans_id INTEGER[]
 );
 
-ALTER TABLE coffee_beans
-  ADD COLUMN
-    user_id INTEGER REFERENCES filter_users(id)
-    ON DELETE SET NULL;
