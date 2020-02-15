@@ -4,7 +4,8 @@ TRUNCATE
   coffee_beans,
   flavor_notes,
   coffee_beans_flavor_notes,
-  filter_users
+  filter_users, 
+  saved
 
   RESTART IDENTITY CASCADE;
 
@@ -281,5 +282,12 @@ VALUES
   ('s.smith', 'Sam Smith','su',  '$2a$12$/4P5/ylaB7qur/McgrEKwuCy.3JZ6W.cRtqxiJsYCdhr89V4Z3rp.'),
   ('lexlor', 'Alex Taylor','au',  '$2a$12$Hq9pfcWWvnzZ8x8HqJotveRHLD13ceS7DDbrs18LpK6rfj4iftNw.'),
   ('wippy', 'Ping Won In','pu', '$2a$12$ntGOlTLG5nEXYgDVqk4bPejBoJP65HfH2JEMc1JBpXaVjXo5RsTUu');
+
+INSERT INTO saved (coffee_bean_id, user_id)
+VALUES
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 2);
 
 COMMIT;

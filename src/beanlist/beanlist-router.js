@@ -40,12 +40,18 @@ beanListRouter
       })
       .catch(next);
   })
-  .post( bodyParser, (req, res, next) => {
-    const  { coffee_bean_id } = req.body;
-    const userId = req.user.id;
+  .post(bodyParser, (req, res, next) => {
+    
+    const BeanUser = req.user.id;
+    const BeanId = req.body.coffee_bean_id;
+
     BeanListService
-      .insertBeanIdToUsersCoffeeBeanIdTable(req.app.get('db'), userId, coffee_bean_id);
-    res.end()
+      .insertToSavedTable(req.app.get('db'), BeanId, BeanUser)
+      .then(bean_User => {
+        res
+          .status(201)
+          .json(bean_User);
+      })
       .catch(next);
   });
 

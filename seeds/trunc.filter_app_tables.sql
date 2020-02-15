@@ -3,6 +3,7 @@ TRUNCATE
   flavor_notes,
   filter_users,
   bean_reviews,
-  coffee_beans_flavor_notes
+  coffee_beans_flavor_notes, 
+  saved
   RESTART IDENTITY CASCADE;
 
