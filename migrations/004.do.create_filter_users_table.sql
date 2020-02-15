@@ -6,6 +6,6 @@ CREATE TABLE filter_users (
   nickname TEXT,
   date_created TIMESTAMP NOT NULL DEFAULT now(),
   date_modified TIMESTAMP, 
-  coffee_beans_id INTEGER[]
+  coffee_beans_id INTEGER []
 );
 

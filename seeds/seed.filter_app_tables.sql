@@ -197,7 +197,7 @@ INSERT INTO flavor_notes
             'NUT'
         ), 
         (
-            'SWEET & SUGARY'
+            'CARAMEL'
         ), 
         (
             'CHOCOLATE'

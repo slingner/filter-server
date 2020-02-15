@@ -1,6 +1,8 @@
 const express = require('express');
 const BeanListService = require('./beanlist-service');
 const { requireAuth } = require('../middleware/jwt-auth');
+const logger = require('../logger');
+
 
 const beanListRouter = express.Router();
 const bodyParser = express.json();
@@ -38,15 +40,12 @@ beanListRouter
       })
       .catch(next);
   })
-  .post((req, res, next) => {
+  .post( bodyParser, (req, res, next) => {
     const  { coffee_bean_id } = req.body;
-    
+    const userId = req.user.id;
     BeanListService
-      .insertBeanIdToUsersCoffeeBeanIdTable(req.app.get('db'), coffee_bean_id)
-      .then(beanId => {
-        res
-          .status(201);
-      })
+      .insertBeanIdToUsersCoffeeBeanIdTable(req.app.get('db'), userId, coffee_bean_id);
+    res.end()
       .catch(next);
   });
 

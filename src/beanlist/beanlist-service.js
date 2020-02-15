@@ -35,10 +35,10 @@ const BeanListService = {
       .from('filter_users.coffee_bean_id')
       .where('id', id);
   }, 
-  insertBeanIdToUsersCoffeeBeanIdTable(db, coffeeBeanid) {
-    return db
-      .insert(coffeeBeanid)
-      .into('filter_users.coffee_bean_id');
+  insertBeanIdToUsersCoffeeBeanIdTable(db, userId, coffeeBeanid) {
+    return db('filter_users')
+      .where({id: userId})
+      .insert({coffee_bean_id: coffeeBeanid});
   },
   // getReviewsForBean(db, coffee_bean_id) {
   //   return db
