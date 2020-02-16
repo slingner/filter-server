@@ -20,7 +20,8 @@ const errorHandling = require('./errorHandling');
 //imports the beanlist router to be used for endpoints
 const beanListRouter= require('./beanlist/beanlist-router');
 const flavorListRouter = require('./flavor-router/flavor-router');
-const usersRouter = require('./users/users-router');
+const usersRouter = require('./users-router/user-router');
+const userBeanRouter = require('./userBean-router/userBean-router');
 // const  reviewsRouter = require('./reviews/reviews-router');
 const authRouter = require('./auth/auth-router');
 
@@ -53,6 +54,7 @@ app.use('/api/beans', beanListRouter);
 app.use('/api/flavors', beanListRouter );
 app.use('/api/allflavors', flavorListRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/userbean', userBeanRouter);
 // app.use('/api/reviews', reviewsRouter);
 app.use('/api/auth', authRouter);
 

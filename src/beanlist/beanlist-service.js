@@ -30,13 +30,12 @@ const BeanListService = {
       });
   },
   getBeansForUser(db, id) {
-    return db
-      .select('*')
-      .from('saved')
-      .where('id', id);
+    return db.raw(`SELECT * FROM saved
+    join coffee_beans on saved.coffee_bean_id=coffee_beans.id
+    where saved.user_id=${id}`);
   }, 
   insertToSavedTable(db, BeanId, UserId) {
-    return db.raw(`INSERT INTO 'saved' (coffee_bean_id, user_id) VALUES (${BeanId},${UserId})`);
+    return db.raw(`INSERT INTO saved (coffee_bean_id, user_id) VALUES (${BeanId},${UserId})`);
   },
   // getReviewsForBean(db, coffee_bean_id) {
   //   return db

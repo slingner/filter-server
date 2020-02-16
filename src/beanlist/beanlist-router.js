@@ -1,7 +1,7 @@
 const express = require('express');
 const BeanListService = require('./beanlist-service');
 const { requireAuth } = require('../middleware/jwt-auth');
-const logger = require('../logger');
+// const logger = require('../logger');
 
 
 const beanListRouter = express.Router();
@@ -27,20 +27,8 @@ beanListRouter
         })
         .catch(next);
     }
-  });
-
-beanListRouter
-  .route('/')
-  .get((req, res, next) => {
-    const userId = req.user.id;
-    BeanListService
-      .getBeansForUser(req.app.get('db'), userId)
-      .then(beans => {
-        res.json(beans);
-      })
-      .catch(next);
   })
-  .post(bodyParser, (req, res, next) => {
+  .post(bodyParser, requireAuth, (req, res, next) => {
     
     const BeanUser = req.user.id;
     const BeanId = req.body.coffee_bean_id;
