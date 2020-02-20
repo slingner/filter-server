@@ -11,5 +11,5 @@ const db = knex({
   // Specify driver for Postgres - type of database
   client: 'pg',
   // Specify database to connect to
-  connection: process.env.DB_URL
+  connection: process.env.DATABASE_URL
 });

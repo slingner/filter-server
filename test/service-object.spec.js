@@ -16,7 +16,7 @@
 //   // Hooks in mocha to connect to the database
 //   before(() => db = knex({
 //     client: 'pg',
-//     connection: process.env.TEST_DB_URL
+//     connection: process.env.TEST_DATABASE_URL
 //   }));
 
 //   // Clears previous data in the table
