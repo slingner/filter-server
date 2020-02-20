@@ -13,12 +13,11 @@ const ReviewsService = {
       .where({id})
       .update(updatedNote);
   },
-  getReviewsForUser(db, BeanId, userId) {
+  getReviewsForUser(db, userId) {
     return db('filter_reviews')
-      .select('*')
-      .where('filter_user_id', userId)
-      // .join('filter_reviews', 'filter_reviews.coffee_bean_id', 'coffee_beans.id')
-      .return(['filter_reviews.text']);
+      .select('filter_reviews.text', 'filter_reviews.coffee_bean_id')
+      .where('filter_reviews.user_id', userId);
+    // .join('filter_reviews', 'filter_reviews.coffee_bean_id', 'coffee_beans.id')
   },
 };
 

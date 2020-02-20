@@ -1,5 +1,5 @@
-// const bcrypt = require('bcryptjs')
-// const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 
 function makeUsersArray() {
@@ -73,8 +73,110 @@ function makeBeansArray(users) {
   ];
 }
 
+function makeReviewsArray(users, beans) {
+  return [
+    {
+      id: 1,
+      text: 'First test review!',
+      coffee_bean_id: beans[0].id,
+      user_id: users[0].id,
+      date_created: '2029-01-22T16:28:32.615Z',
+    },
+    {
+      id: 2,
+      text: 'Second test review!',
+      coffee_bean_id: beans[0].id,
+      user_id: users[1].id,
+      date_created: '2029-01-22T16:28:32.615Z',
+    },
+    {
+      id: 3,
+      text: 'Third test review!',
+      coffee_bean_id: beans[0].id,
+      user_id: users[2].id,
+      date_created: '2029-01-22T16:28:32.615Z',
+    },
+    {
+      id: 4,
+      text: 'Fourth test review!',
+      coffee_bean_id: beans[0].id,
+      user_id: users[3].id,
+      date_created: '2029-01-22T16:28:32.615Z',
+    },
+    {
+      id: 5,
+      text: 'Fifth test review!',
+      coffee_bean_id: beans[beans.length - 1].id,
+      user_id: users[0].id,
+      date_created: '2029-01-22T16:28:32.615Z',
+    }
+  ];
+}
+function seedUsers(db, users) {
+  const preppedUsers = users.map(user => ({
+    ...user, //this grabs all key values from the user obj
+    password: bcrypt.hashSync(user.password, 1)
+  }))
+  return db.into('filter_users').insert(preppedUsers)
+    .then(() =>
+      // update the auto sequence to stay in sync
+      db.raw(
+        `SELECT setval('filter_users_id_seq', ?)`, //? is a placeholder, replaced by 2nd arg
+        [users[users.length - 1].id],
+      )
+    )
+}
+
+function makeBeansFixtures() {
+  const testUsers = makeUsersArray();
+  const testBeans = makeBeansArray(testUsers);
+  const testReviews = makeReviewsArray(testUsers, testBeans);
+  return { testUsers, testBeans, testReviews };
+}
+
+
+function cleanTables(db) {
+  return db.raw(
+    `TRUNCATE
+      coffee_beans,
+      filter_users,
+      filter_reviews
+      RESTART IDENTITY CASCADE`
+  );
+}
+function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
+  const token = jwt.sign({ user_id: user.id }, secret, {
+    subject: user.user_name,
+    algorithm: 'HS256',
+  });
+  return `Bearer ${token}`;
+}
+
+function seedBeansTables(db, users, beans, reviews=[]) {
+  return db.transaction( async trx => {
+    await seedUsers(trx, users)
+    await trx.into("coffee_beans").insert(beans)
+    await trx.raw(
+      `SELECT setval('coffee_beans_id_seq', ?)`, 
+      [beans[beans.length - 1].id],
+    )
+    // if(reviews.length) {
+    //   await trx.into('filter_reviews').insert(reviews)
+    //   await trx.raw(
+    //     `SELECT setval('filter_reviews_id_seq', ?)`, 
+    //     [reviews[reviews.length - 1].id],
+    //   )
+    // }
+  })
+}
 
 module.exports = {
+  makeUsersArray,
   makeBeansArray,
+  cleanTables,
+  makeAuthHeader,
+  makeBeansFixtures,
+  seedUsers,
+  seedBeansTables
 
 };

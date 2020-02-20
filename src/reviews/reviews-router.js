@@ -9,7 +9,7 @@ const bodyParser = express.json();
 
 reviewsRouter
   .route('/')
-  .get(requireAuth, bodyParser, (req, res, next) => {
+  .get(requireAuth, (req, res, next) => {
     const BeanUser = req.user.id;
     ReviewsService
       .getReviewsForUser(req.app.get('db'), BeanUser)
@@ -27,6 +27,7 @@ reviewsRouter
     const BeanUser = req.user.id;
     const BeanId = req.body.coffee_bean_id;
     const { text } = req.body;
+    
 
     ReviewsService
       .insertToFilterReviews(req.app.get('db'), text, BeanId, BeanUser)
