@@ -5,7 +5,8 @@ TRUNCATE
   flavor_notes,
   coffee_beans_flavor_notes,
   filter_users, 
-  saved
+  saved,
+  filter_reviews
 
   RESTART IDENTITY CASCADE;
 
@@ -289,5 +290,26 @@ VALUES
     (2, 1),
     (3, 1),
     (4, 2);
+
+INSERT INTO filter_reviews (
+  text,
+  coffee_bean_id,
+  user_id
+) VALUES
+  (
+    'This thing is amazing.',
+    1,
+    2
+  ),
+  (
+    'Coool',
+    1,
+    3
+  ),
+  (
+    'Sweet',
+    7,
+    3
+  );
 
 COMMIT;

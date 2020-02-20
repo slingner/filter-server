@@ -23,16 +23,18 @@ const BeanListService = {
   getBeanByFlavorNoteID(knex, id) {
     return knex
       .from('coffee_beans_flavor_notes')
-      .distinct('coffee_beans.id','coffee_beans.bean_name', 'coffee_beans.bean_origin', 'coffee_beans.bean_masl', 'coffee_beans.bean_grower', 'coffee_beans.bean_process', 'coffee_beans.flavor_notes' )
+      .distinct('coffee_beans.id','coffee_beans.bean_name', 'coffee_beans.bean_origin', 'coffee_beans.bean_masl', 'coffee_beans.bean_grower', 'coffee_beans.bean_process', 'coffee_beans.flavor_notes')
       .whereIn('coffee_beans_flavor_notes.flavor_note_id', id)
       .join('coffee_beans', function() {
         this.on('coffee_beans_flavor_notes.coffee_bean_id', '=', 'coffee_beans.id');
       });
+
+      
   },
   getBeansForUser(db, id) {
     return db.raw(`SELECT * FROM saved
-    join coffee_beans on saved.coffee_bean_id=coffee_beans.id
-    where saved.user_id=${id}`);
+    JOIN coffee_beans ON saved.coffee_bean_id=coffee_beans.id
+    WHERE saved.user_id=${id}`);
   }, 
   insertToSavedTable(db, BeanId, UserId) {
     return db.raw(`INSERT INTO saved (coffee_bean_id, user_id) VALUES (${BeanId},${UserId})`);

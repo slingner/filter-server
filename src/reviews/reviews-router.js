@@ -1,38 +1,43 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 const ReviewsService = require('./reviews-service');
 const { requireAuth } = require('../middleware/jwt-auth');
 
 const reviewsRouter = express.Router();
-const jsonBodyParser = express.json();
+const bodyParser = express.json();
+
 
 reviewsRouter
   .route('/')
-  .post(requireAuth, jsonBodyParser, (req, res, next) => {
-    const { coffee_bean_id, rating, text } = req.body;
-    const newReview = { coffee_bean_id, rating, text };
-
-    for (const [key, value] of Object.entries(newReview)) {
-      if (value == null) {
-        return res.status(400).json({
-          error: `Missing '${key}' in request body`
-        });
-      }  
-    }
-
-    newReview.user_id = req.user.id;
-
-    ReviewsService.insertReview(
-      req.app.get('db'),
-      newReview
-    )
+  .get(requireAuth, bodyParser, (req, res, next) => {
+    const BeanUser = req.user.id;
+    ReviewsService
+      .getReviewsForUser(req.app.get('db'), BeanUser)
       .then(review => {
-        res
-          .status(201)
-          .location(path.posix.join(req.originalUrl, `/${review.id}`))
-          .json(ReviewsService.serializeReview(review));
+        res.json(review);
       })
       .catch(next);
   });
+
+
+reviewsRouter
+  .route('/')
+  .post(bodyParser, requireAuth, (req, res, next) => {
+    
+    const BeanUser = req.user.id;
+    const BeanId = req.body.coffee_bean_id;
+    const { text } = req.body;
+
+    ReviewsService
+      .insertToFilterReviews(req.app.get('db'), text, BeanId, BeanUser)
+      .then(bean_User => {
+        res
+          .status(201)
+          .json(bean_User);
+      })
+      .catch(next);
+  });
+
+
 
 module.exports = reviewsRouter;
