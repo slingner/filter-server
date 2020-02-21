@@ -6,6 +6,7 @@ require('dotenv').config();
 const knex = require('knex');
 
 // Create knex instance with the database configuration
+// eslint-disable-next-line no-unused-vars
 const db = knex({
   // Specify driver for Postgres - type of database
   client: 'pg',

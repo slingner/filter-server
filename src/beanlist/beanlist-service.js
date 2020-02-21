@@ -1,6 +1,3 @@
-const xss = require('xss');
-const Treeize = require('treeize');
-
 const BeanListService = {
   getAllBeans(knex) {
     return knex
