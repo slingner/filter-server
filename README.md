@@ -1,6 +1,6 @@
-# Express Boilerplate!
+# Filter App API!
 
-This is a boilerplate project used for starting new  Express-Knex projects!
+This is the API for Scott Lingner's Filter App. This uses Node, Express, Knex and PostgreSQL.
 
 ## Set up
 
