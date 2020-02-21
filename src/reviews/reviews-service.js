@@ -5,7 +5,7 @@ const ReviewsService = {
   insertToFilterReviews(db, textValue, BeanId, userId ) {
     return db('filter_reviews')
       .insert({text: textValue, coffee_bean_id: BeanId, user_id: userId})
-      .returning(['text', 'coffee_bean_id', 'user_id']);
+      .returning(['id', 'text', 'coffee_bean_id', 'user_id']);
   },
   // updateReview(knex, id, updatedNote) {
   //   return knex('notes')

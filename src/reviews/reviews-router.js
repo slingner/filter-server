@@ -9,10 +9,12 @@ const bodyParser = express.json();
 
 reviewsRouter
   .route('/')
-  .get(requireAuth, (req, res, next) => {
+  .post(bodyParser, requireAuth, (req, res, next) => {
+    const beanId = req.body.coffee_bean_id;
     const BeanUser = req.user.id;
+
     ReviewsService
-      .getReviewsForUser(req.app.get('db'), BeanUser)
+      .getReviewsForUser(req.app.get('db'), BeanUser, beanId)
       .then(review => {
         res.json(review);
       })
@@ -20,7 +22,7 @@ reviewsRouter
   });
 
 reviewsRouter
-  .route('/')
+  .route('/add')
   .post(bodyParser, requireAuth, (req, res, next) => {
     
     const BeanUser = req.user.id;
