@@ -15,10 +15,17 @@ const ReviewsService = {
   },
   getReviewsForUser(db, userId) {
     return db('filter_reviews')
-      .select('filter_reviews.text', 'filter_reviews.coffee_bean_id')
+      .select('filter_reviews.id','filter_reviews.text', 'filter_reviews.coffee_bean_id')
       .where('filter_reviews.user_id', userId);
-    // .join('filter_reviews', 'filter_reviews.coffee_bean_id', 'coffee_beans.id')
+  },
+  removeReview(knex, id) {
+    return knex('filter_reviews')
+      .where({id})
+      .delete();
   },
 };
 
 module.exports = ReviewsService;
+
+// 'filter_reviews.id',
+// .join('filter_reviews', 'filter_reviews.coffee_bean_id', 'coffee_beans.id')

@@ -1,5 +1,5 @@
 const express = require('express');
-// const path = require('path');
+const xss = require('xss');
 const ReviewsService = require('./reviews-service');
 const { requireAuth } = require('../middleware/jwt-auth');
 
@@ -27,10 +27,11 @@ reviewsRouter
     const BeanUser = req.user.id;
     const BeanId = req.body.coffee_bean_id;
     const { text } = req.body;
-    
+
+    let xssText = xss(text);
 
     ReviewsService
-      .insertToFilterReviews(req.app.get('db'), text, BeanId, BeanUser)
+      .insertToFilterReviews(req.app.get('db'), xssText, BeanId, BeanUser)
       .then(bean_User => {
         res
           .status(201)
@@ -38,6 +39,20 @@ reviewsRouter
       })
       .catch(next);
   });
+
+reviewsRouter
+  .route('/:id')
+  .delete((req, res, next) => {
+    const { id } = req.params;
+
+    ReviewsService
+      .removeReview(req.app.get('db'), id)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
+  });
+
 
 
 
