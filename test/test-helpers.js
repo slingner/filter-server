@@ -49,7 +49,7 @@ function makeBeansArray(users) {
       bean_masl: '1600 Meters',
       bean_grower: 'Ureña Rojas Family',
       bean_process: 'Honey',
-      user_id: users[0].id
+      flavor_notes: 'test, test, test',
     },
     {
       id: 2,
@@ -58,7 +58,7 @@ function makeBeansArray(users) {
       bean_masl: '1600 Meters',
       bean_grower: 'Ureña Rojas Family',
       bean_process: 'Honey',
-      user_id: users[1].id
+      flavor_notes: 'test, test, test',
 
     },
     {
@@ -68,7 +68,7 @@ function makeBeansArray(users) {
       bean_masl: '1600 Meters',
       bean_grower: 'Ureña Rojas Family',
       bean_process: 'Honey',
-      user_id: users[2].id
+      flavor_notes: 'test, test, test',
     }
   ];
 }
@@ -78,37 +78,37 @@ function makeReviewsArray(users, beans) {
     {
       id: 1,
       text: 'First test review!',
+      date_created: '2029-01-22T16:28:32.615Z',
       coffee_bean_id: beans[0].id,
       user_id: users[0].id,
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 2,
       text: 'Second test review!',
+      date_created: '2029-01-22T16:28:32.615Z',
       coffee_bean_id: beans[0].id,
       user_id: users[1].id,
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 3,
       text: 'Third test review!',
+      date_created: '2029-01-22T16:28:32.615Z',
       coffee_bean_id: beans[0].id,
       user_id: users[2].id,
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 4,
       text: 'Fourth test review!',
+      date_created: '2029-01-22T16:28:32.615Z',
       coffee_bean_id: beans[0].id,
       user_id: users[3].id,
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 5,
       text: 'Fifth test review!',
+      date_created: '2029-01-22T16:28:32.615Z',
       coffee_bean_id: beans[beans.length - 1].id,
       user_id: users[0].id,
-      date_created: '2029-01-22T16:28:32.615Z',
     }
   ];
 }
@@ -160,13 +160,13 @@ function seedBeansTables(db, users, beans, reviews=[]) {
       `SELECT setval('coffee_beans_id_seq', ?)`, 
       [beans[beans.length - 1].id],
     )
-    // if(reviews.length) {
-    //   await trx.into('filter_reviews').insert(reviews)
-    //   await trx.raw(
-    //     `SELECT setval('filter_reviews_id_seq', ?)`, 
-    //     [reviews[reviews.length - 1].id],
-    //   )
-    // }
+    if(reviews.length) {
+      await trx.into('filter_reviews').insert(reviews)
+      await trx.raw(
+        `SELECT setval('filter_reviews_id_seq', ?)`, 
+        [reviews[reviews.length - 1].id],
+      )
+    }
   })
 }
 
@@ -178,5 +178,4 @@ module.exports = {
   makeBeansFixtures,
   seedUsers,
   seedBeansTables
-
 };

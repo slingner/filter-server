@@ -30,6 +30,24 @@ reviewsRouter
     //protext the text coming in from the review to stop bad injections
     let xssText = xss(text);
 
+    if(!BeanUser) {
+      return res.status(400).json({
+        error: { message: 'Missing \'authentication\' in request body' }
+      });
+    }
+
+    if(!BeanId) {
+      return res.status(400).json({
+        error: { message: 'Missing \'id\' in request body' }
+      });
+    }
+
+    if(!text) {
+      return res.status(400).json({
+        error: { message: 'Missing \'text\' in request body' }
+      });
+    }
+
     ReviewsService
       .insertToFilterReviews(req.app.get('db'), xssText, BeanId, BeanUser)
       .then(bean_User => {
