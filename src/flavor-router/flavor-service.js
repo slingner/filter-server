@@ -1,5 +1,3 @@
-
-
 const FlavorService = {
   getAllFlavorNotes(knex) {
     return knex

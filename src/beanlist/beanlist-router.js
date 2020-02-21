@@ -3,7 +3,6 @@ const BeanListService = require('./beanlist-service');
 const { requireAuth } = require('../middleware/jwt-auth');
 const logger = require('../logger');
 
-
 const beanListRouter = express.Router();
 const bodyParser = express.json();
 
@@ -60,57 +59,5 @@ beanListRouter
       })
       .catch(next);
   });
-
-
-    
-  
-
-  
-
-// beanListRouter
-//   .route('/:bean_id')
-//   .get((req, res, next) => {
-//     BeanListService
-//       .getBeanById(req.app.get('db'), req.params.bean_id)
-//       .then(beans => {
-//         res.json(beans);
-//       })
-//       .catch(next);
-//   });
-
-
-// beanListRouter.route('/:bean_id/reviews/')
-//   .all(requireAuth)
-//   .all(checkBeanExists)
-//   .get((req, res, next) => {
-//     BeanListService.getReviewsForBean(
-//       req.app.get('db'),
-//       req.params.coffee_bean_id
-//     )
-//       .then(reviews => {
-//         res.json(BeanListService.serializeBeanReviews(reviews))
-//       })
-//       .catch(next)
-//   })
-
-// /* async/await syntax for promises */
-// async function checkBeanExists(req, res, next) {
-//   try {
-//     const bean = await BeanListService.getById(
-//       req.app.get('db'),
-//       req.params.coffee_bean_id
-//     )
-
-//     if (!bean)
-//       return res.status(404).json({
-//         error: `Bean doesn't exist`
-//       })
-
-//     res.bean = bean
-//     next()
-//   } catch (error) {
-//     next(error)
-//   }
-// }
 
 module.exports = beanListRouter;

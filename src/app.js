@@ -13,7 +13,7 @@ const helmet = require('helmet');
 //imports environment from config settings
 const { NODE_ENV } = require('./config');
 //import logic for validating/securing API token
-// const validateToken = require('./validateToken');
+
 //imports all error handling logic 
 const errorHandling = require('./errorHandling');
 
@@ -36,18 +36,12 @@ const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
-
 //----------------------------------Mounting Middleware
 
 //always hide HTTP headers with morgan before sending cors
 app.use(morgan(morganOption)); 
 app.use(helmet());
 app.use(cors());
-
-
-// Validate API key
-// app.use(validateToken);
-
 
 //----------------------------------Endpoints Config
 app.use('/api/beans', beanListRouter);

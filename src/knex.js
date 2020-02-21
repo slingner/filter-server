@@ -2,7 +2,6 @@
 require('dotenv').config();
 // Require service objects
 
-
 // Require library to access database
 const knex = require('knex');
 

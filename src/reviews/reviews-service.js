@@ -1,5 +1,3 @@
-const xss = require('xss');
-
 const ReviewsService = {
 
   insertToFilterReviews(db, textValue, BeanId, userId ) {
@@ -7,11 +5,6 @@ const ReviewsService = {
       .insert({text: textValue, coffee_bean_id: BeanId, user_id: userId})
       .returning(['id', 'text', 'coffee_bean_id', 'user_id']);
   },
-  // updateReview(knex, id, updatedNote) {
-  //   return knex('notes')
-  //     .where({id})
-  //     .update(updatedNote);
-  // },
   getReviewsForUser(db, userId, beanId) {
     return db('filter_reviews')
       .select('filter_reviews.id','filter_reviews.text', 'filter_reviews.coffee_bean_id')
@@ -26,6 +19,3 @@ const ReviewsService = {
 };
 
 module.exports = ReviewsService;
-
-// 'filter_reviews.id',
-// .join('filter_reviews', 'filter_reviews.coffee_bean_id', 'coffee_beans.id')

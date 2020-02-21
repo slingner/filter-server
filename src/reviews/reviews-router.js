@@ -6,7 +6,6 @@ const { requireAuth } = require('../middleware/jwt-auth');
 const reviewsRouter = express.Router();
 const bodyParser = express.json();
 
-
 reviewsRouter
   .route('/')
   .post(bodyParser, requireAuth, (req, res, next) => {
@@ -28,7 +27,7 @@ reviewsRouter
     const BeanUser = req.user.id;
     const BeanId = req.body.coffee_bean_id;
     const { text } = req.body;
-
+    //protext the text coming in from the review to stop bad injections
     let xssText = xss(text);
 
     ReviewsService
@@ -53,8 +52,5 @@ reviewsRouter
       })
       .catch(next);
   });
-
-
-
 
 module.exports = reviewsRouter;

@@ -3,7 +3,7 @@ const userService = require('./userBean-service');
 const { requireAuth } = require('../middleware/jwt-auth');
 
 const userBeanRouter = express.Router();
-// const bodyParser = express.json();
+
 
 userBeanRouter
   .get('/', requireAuth, (req, res, next) => {
@@ -36,7 +36,6 @@ userBeanRouter
       })
       .catch(next);
   });
-
 
 module.exports = userBeanRouter;
 

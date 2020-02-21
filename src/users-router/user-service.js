@@ -1,12 +1,9 @@
 
 const xss = require('xss');
 const bcrypt = require('bcryptjs');
-const {requireAuth} = require('../middleware/jwt-auth');
 
 //check that the password is greater than or equal to 8 characters and not longer than 72.
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
-
-
 
 const UsersService = {
   hasUserWithUserName(db, user_name) {
