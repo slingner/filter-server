@@ -2,6 +2,18 @@
 
 This is the API for Scott Lingner's Filter App. This uses Node, Express, Knex and PostgreSQL.
 
+## Scripts
+
+Start the application `npm start`
+
+Start nodemon for the application `npm run dev`
+
+Run the tests in watch mode `npm test`
+
+Migrate the dev database `npm run migrate`
+
+Migrate the test database `npm run migrate:test`
+
 ## Set up
 
 Complete the following steps to start a new project (NEW-PROJECT-NAME):
