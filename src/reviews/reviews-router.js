@@ -19,7 +19,6 @@ reviewsRouter
       .catch(next);
   });
 
-
 reviewsRouter
   .route('/')
   .post(bodyParser, requireAuth, (req, res, next) => {

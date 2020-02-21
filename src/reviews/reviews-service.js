@@ -3,20 +3,20 @@ const xss = require('xss');
 const ReviewsService = {
 
   insertToFilterReviews(db, textValue, BeanId, userId ) {
-    // return db.raw(`INSERT INTO filter_reviews (text, coffee_bean_id, user_id) VALUES (${textValue}, ${BeanId}, ${userId}`);
     return db('filter_reviews')
       .insert({text: textValue, coffee_bean_id: BeanId, user_id: userId})
       .returning(['text', 'coffee_bean_id', 'user_id']);
   },
-  updateReview(knex, id, updatedNote) {
-    return knex('notes')
-      .where({id})
-      .update(updatedNote);
-  },
-  getReviewsForUser(db, userId) {
+  // updateReview(knex, id, updatedNote) {
+  //   return knex('notes')
+  //     .where({id})
+  //     .update(updatedNote);
+  // },
+  getReviewsForUser(db, userId, beanId) {
     return db('filter_reviews')
       .select('filter_reviews.id','filter_reviews.text', 'filter_reviews.coffee_bean_id')
-      .where('filter_reviews.user_id', userId);
+      .where('filter_reviews.user_id', userId)
+      .where('filter_reviews.coffee_bean_id', beanId);
   },
   removeReview(knex, id) {
     return knex('filter_reviews')
