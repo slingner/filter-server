@@ -22,7 +22,7 @@ const beanListRouter= require('./beanlist/beanlist-router');
 const flavorListRouter = require('./flavor-router/flavor-router');
 const usersRouter = require('./users-router/user-router');
 const userBeanRouter = require('./userBean-router/userBean-router');
-const  reviewsRouter = require('./reviews/reviews-router');
+const reviewsRouter = require('./reviews/reviews-router');
 const authRouter = require('./auth/auth-router');
 
 //create express app to communicate with express server
