@@ -14,19 +14,19 @@ function makeUsersArray() {
       id: 2,
       user_name: 'test-user-2',
       full_name: 'Test user 2',
-      password: 'password',
+      password: '$2a$12$VQ5HgWm34QQK2rJyLc0lmu59cy2jcZiV6U1.bE8rBBnC9VxDf/YQO',
     },
     {
       id: 3,
       user_name: 'test-user-3',
       full_name: 'Test user 3',
-      password: 'password',
+      password: '$2a$12$2fv9OPgM07xGnhDbyL6xsuAeQjAYpZx/3V2dnu0XNIR27gTeiK2gK',
     },
     {
       id: 4,
       user_name: 'test-user-4',
       full_name: 'Test user 4',
-      password: 'password',
+      password: '$2a$12$/4P5/ylaB7qur/McgrEKwuCy.3JZ6W.cRtqxiJsYCdhr89V4Z3rp.',
     },
   ];
 }
