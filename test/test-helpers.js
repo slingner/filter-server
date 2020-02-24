@@ -8,33 +8,25 @@ function makeUsersArray() {
       id: 1,
       user_name: 'test-user-1',
       full_name: 'Test user 1',
-      nickname: 'TU1',
       password: '$2a$12$lHK6LVpc15/ZROZcKU00QeiD.RyYq5dVlV/9m4kKYbGibkRc5l4Ne',
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 2,
       user_name: 'test-user-2',
       full_name: 'Test user 2',
-      nickname: 'TU2',
       password: 'password',
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 3,
       user_name: 'test-user-3',
       full_name: 'Test user 3',
-      nickname: 'TU3',
       password: 'password',
-      date_created: '2029-01-22T16:28:32.615Z',
     },
     {
       id: 4,
       user_name: 'test-user-4',
       full_name: 'Test user 4',
-      nickname: 'TU4',
       password: 'password',
-      date_created: '2029-01-22T16:28:32.615Z',
     },
   ];
 }
@@ -113,7 +105,7 @@ function makeReviewsArray(users, beans) {
   ];
 }
 function seedUsers(db, users) {
-  const preppedUsers = users.map(user => ({
+  const preppedUsers = users.map(user =>({
     ...user, //this grabs all key values from the user obj
     password: bcrypt.hashSync(user.password, 1)
   }))
